@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var uploadfile = require('./routes/uploadfile');
 
 var app = express();
 var $ = require("jquery");
@@ -29,7 +30,7 @@ app.use(cors({
 }));
 app.use('/', routes);
 app.use('/users', users);
-
+app.use('/uploadfile', uploadfile);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

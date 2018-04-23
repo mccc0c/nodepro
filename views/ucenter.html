@@ -9,35 +9,82 @@
 <body>
     <h1>Hello World</h1>
     <p>
-        <%=user%>已经成功登陆</p>
-    <p class="click">click</p>
+        <!-- <%=user%>已经成功登陆
+            <%=title%> -->
+    </p>
+    <ul>
+        <li></li>
+    </ul>
+    <form>
+        <input type="text" name="username">
+        <input type="password" name="userpwd">
+        <div class="addPer">add Person</div>
+    </form>
+    <input type="file" name="file" onchange="fileChange(this)">
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script>
-   $('.click').click(function(){
-    		/*$.ajax({
-		        type: 'get',
-		        url: 'http://localhost:3000/indexshow',
-		        success: function(data) {
-		            console.log(data);
-		        },
-		        error: function() {
-		            console.log("error");
-		        }
-    		})*/
+    /*$.ajax({
+            type: 'get',
+            url: '/getAllUser',
+            success: function(data) {
+                console.log(data);
+            },
+            error: function() {
+                console.log("error");
+            }
+        });*/
+    function fileChange(e) {
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:3000/uploadfile/filechange',
+            data: { filename: $(e).val() },
+            success: function(data) {
+                console.log(data.result);
+            },
+            error: function() {
+                console.log("error");
+            }
+        });
+    }
+    $(function() {
+        $('.click').click(function() {
+            /*$.ajax({
+                    type: 'get',
+                    url: 'http://localhost:3000/indexshow',
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                })*/
             $.ajax({
                 type: 'post',
                 url: 'http://localhost:3000/addassignments',
-                data:{"context":"ok","date":new Date().toLocaleDateString(),"name":"admin"},
+                data: { "context": "ok", "date": new Date().toLocaleDateString(), "name": "admin" },
                 success: function(data) {
                     console.log(data);
                 },
                 error: function() {
                     console.log("error");
                 }
-            })
-    	})
-    	
-    
+            });
+        });
+
+        $('.addPer').click(function() {
+            $.ajax({
+                type: 'post',
+                url: '/addAllUser',
+                data: { "name": $('input[name="username"]').val(), "password": $('input[name="userpwd"]').val() },
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function() {
+                    console.log("error");
+                }
+            });
+        });
+    });
     </script>
 </body>
 
